@@ -433,12 +433,6 @@ namespace Shelf_Register
                 {
                     image = Image.FromStream(ms);
                     string name = Path.Combine(Config.static_img_folder, rfid + ".jpg");
-                    //if (File.Exists(name))
-                    //{
-                    //    File.Delete(name);
-                    //}
-                    //image.Save(name, ImageFormat.Jpeg);
-                    //return name;
                     if (File.Exists(name))
                     {
                         return name;
@@ -453,6 +447,7 @@ namespace Shelf_Register
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MessageBox.Show(e.Message);
 
             }
             return data;
@@ -649,12 +644,9 @@ namespace Shelf_Register
                 {
                     //Swap function
                     PictureBox now = sender as PictureBox;
-                    Console.WriteLine(now.Name);
 
                     if (now.Name != "" && now.Name != lastChoose.Name)
                     {
-                        Console.WriteLine("Have image clicked!");
-
                         //Gán dữ liệu ảnh đang chọn vào biến datanew
                         //Lưu ý khi swap thì vị trí lưu phải là vị trí của thằng temp => Nếu ko chỉ dữ liệu thay đổi, vị trí không thay đổi
                         Global.ProductPos datanew = new Global.ProductPos
@@ -814,7 +806,6 @@ namespace Shelf_Register
                             Console.WriteLine("Không có hình không làm gì cả");
                         }
                     }
-                    //Chạy đến đây là hết
                     updateName();
                 }
                 //Handle for scan mode = true 
@@ -823,9 +814,6 @@ namespace Shelf_Register
                     string url = GetImage(Global.productPos["temp"].link_image, Global.productPos["temp"].RFIDcode);
                     Global.productPos["temp"].link_image = url;
                     choosingImage.Load(url);
-
-                    //Console.WriteLine("BUG IS" + Global.productPos["temp"].link_image);                                      
-                    //choosingImage.Load(Global.productPos["temp"].link_image);
                     Global.productPos[choosingImage.Name] = Global.productPos["temp"];
                     //Continue handle duplicate image
                     Global.productPos["temp"].picture_box.Load(Const.blank_image);
@@ -929,7 +917,6 @@ namespace Shelf_Register
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    //bugging
                     deleteImage.Load(Const.blank_image);
                     Global.productPos.Remove(deleteImage.Name);
                     deleteName();
@@ -976,11 +963,8 @@ namespace Shelf_Register
 
                 }
             }
-
             if (btnConnect.BackColor ==  Color.ForestGreen)
             Global.dataRegister.EnableReceivedData = true;
-
-
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -1038,7 +1022,6 @@ namespace Shelf_Register
                 if (btnLoad.BackColor == Color.ForestGreen || btnScan.BackColor == Color.ForestGreen)
                 {
                     btnLoad.BackColor = Color.RoyalBlue;
-
                     btnScan.Text = "SCAN";
                     btnScan.BackColor = Color.RoyalBlue;
                     locationTimer.Stop();

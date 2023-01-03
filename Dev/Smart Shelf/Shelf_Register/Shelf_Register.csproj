@@ -264,7 +264,7 @@
     <Compile Include="Model\functions\SafeThreadExtentions.cs" />
     <Compile Include="Model\functions\Utilities.cs" />
     <Compile Include="Model\functions\Connect_Ethernet.cs" />
-    <Compile Include="Model\main\Main.cs" />
+    <Compile Include="Model\main\Program.cs" />
     <Compile Include="View\Detail.cs">
       <SubType>Form</SubType>
     </Compile>

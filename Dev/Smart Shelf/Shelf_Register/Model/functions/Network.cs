@@ -71,7 +71,6 @@ namespace Shelf_Register
             }
             catch (Exception)
             {
-                Console.WriteLine("Bug is here");
                 //log error
             }
 
@@ -100,7 +99,6 @@ namespace Shelf_Register
             }
             catch (Exception)
             {
-                Console.WriteLine("Bug is here");
                 //log error
             }
 

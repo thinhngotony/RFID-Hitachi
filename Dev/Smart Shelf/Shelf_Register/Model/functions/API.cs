@@ -659,7 +659,6 @@ namespace Shelf_Register
                         }
 
                         string temp = Global.productPos[pic.Name].link_image;
-                        Console.WriteLine("bug is", temp);
                         //Nếu base 64 OK
                         //Nếu link Online OK => Chuyển thành link local
                         //Nếu link local => Covert sang base64
@@ -670,7 +669,15 @@ namespace Shelf_Register
                         }
                         else if (Global.productPos[pic.Name].link_image != "")
                         {
-                            base64_covert = Utilities.ImageToBase64(Global.productPos[pic.Name].link_image);
+                            // Check phải là base64 chưa => Nếu chưa mới gọi hàm ImageToBase64
+
+                            if (!Utilities.IsBase64(Global.productPos[pic.Name].link_image))
+                            {
+                                base64_covert = Utilities.ImageToBase64(Global.productPos[pic.Name].link_image);
+                            } else
+                            {
+                                base64_covert = Global.productPos[pic.Name].link_image;
+                            }
                         }
 
                         json = System.Text.Json.JsonSerializer.Serialize(new
@@ -715,14 +722,12 @@ namespace Shelf_Register
 
                         string resultContent = await result.Content.ReadAsStringAsync();
                         JObject data = JObject.Parse(resultContent);
-                        Console.WriteLine(resultContent);
                         Global.apiMessage = (string)data["message"];
                         Global.apiStatus = (string)data["code"];
                         Config.smart_shelf_names.Add(dpp_shelf_name);
                     }
                     else
                     {
-                        Console.WriteLine(result);
 
                     }
 

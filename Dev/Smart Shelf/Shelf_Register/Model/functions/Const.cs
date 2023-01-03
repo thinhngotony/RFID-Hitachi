@@ -8,9 +8,7 @@ namespace Shelf_Register
 {
     public static class Const
     {
-
         public static string blank_image = @"Common/images/blank_background.png";
         public static string no_image = @"Common/images/noimage.png";
-
     }
 }
