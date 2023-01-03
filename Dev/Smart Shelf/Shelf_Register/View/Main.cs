@@ -1055,12 +1055,12 @@ namespace Shelf_Register
 
         private void Front_FormClosed(object sender, FormClosedEventArgs e)
         {
-            try
-            {
-                Network.CloseConnect();
+            //try
+            //{
+            //    Network.CloseConnect();
 
-            }
-            catch (Exception) { }
+            //}
+            //catch (Exception) { }
         }
 
         private void Check_timer(object sender, EventArgs e)

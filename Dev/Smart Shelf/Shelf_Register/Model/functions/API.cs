@@ -16,8 +16,6 @@ namespace Shelf_Register
     public class API
     {
 
-            
-            
         public static async Task ApiGetSmartShelfNames()
         {
             try

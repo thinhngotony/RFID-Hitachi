@@ -12,6 +12,12 @@ namespace Shelf_Register
 {
     public partial class Setting : Form
     {
+        public static Setting settingForm = null;
+        public static void SetForm(Setting _form)
+        {
+            settingForm = _form;
+        }
+
         public Setting()
         {
             InitializeComponent();
@@ -67,7 +73,18 @@ namespace Shelf_Register
             TextBox textBox4_2 = new TextBox();
             textBox4_2.Text = "";
             textBox4_2.Name = "8";
-            settingLayer.Controls.Add(textBox4_2, 8, 3);
+            settingLayer.Controls.Add(textBox4_2, 8, 3);           
+            
+            TextBox textBox5_1 = new TextBox();
+            textBox5_1.Text = "";
+            textBox5_1.Name = "9";
+            settingLayer.Controls.Add(textBox5_1, 0, 4);
+
+
+            TextBox textBox5_2 = new TextBox();
+            textBox5_2.Text = "";
+            textBox5_2.Name = "10";
+            settingLayer.Controls.Add(textBox5_2, 8, 4);
 
             foreach (TextBox antenaNo in settingLayer.Controls.OfType<TextBox>())
             {
@@ -116,6 +133,16 @@ namespace Shelf_Register
             antenaNo8.Text = "ANTENA";
             antenaNo8.Name = "8";
             settingLayer.Controls.Add(antenaNo8, 7, 3);
+
+            CheckBox antenaNo9 = new CheckBox();
+            antenaNo9.Text = "ANTENA";
+            antenaNo9.Name = "9";
+            settingLayer.Controls.Add(antenaNo9, 0, 4);
+
+            CheckBox antenaNo10 = new CheckBox();
+            antenaNo10.Text = "ANTENA";
+            antenaNo10.Name = "10";
+            settingLayer.Controls.Add(antenaNo10, 7, 4);
 
             foreach (CheckBox antenaIndex in settingLayer.Controls.OfType<CheckBox>())
             {
@@ -202,6 +229,9 @@ namespace Shelf_Register
             pictureBoxSetting_3_6.Name = "3_6";
             settingLayer.Controls.Add(pictureBoxSetting_3_6, 6, 2);
 
+            //===================================================
+
+
             PictureBox pictureBoxSetting_4_1 = new PictureBox();
             pictureBoxSetting_4_1.Name = "4_1";
             settingLayer.Controls.Add(pictureBoxSetting_4_1, 1, 3);
@@ -226,6 +256,31 @@ namespace Shelf_Register
             pictureBoxSetting_4_6.Name = "4_6";
             settingLayer.Controls.Add(pictureBoxSetting_4_6, 6, 3);
 
+            //===================================================
+            PictureBox pictureBoxSetting_5_1 = new PictureBox();
+            pictureBoxSetting_5_1.Name = "5_1";
+            settingLayer.Controls.Add(pictureBoxSetting_5_1, 1, 4);
+
+            PictureBox pictureBoxSetting_5_2 = new PictureBox();
+            pictureBoxSetting_5_2.Name = "5_2";
+            settingLayer.Controls.Add(pictureBoxSetting_5_2, 2, 4);
+
+            PictureBox pictureBoxSetting_5_3 = new PictureBox();
+            pictureBoxSetting_5_3.Name = "5_3";
+            settingLayer.Controls.Add(pictureBoxSetting_5_3, 3, 4);
+
+            PictureBox pictureBoxSetting_5_4 = new PictureBox();
+            pictureBoxSetting_5_4.Name = "5_4";
+            settingLayer.Controls.Add(pictureBoxSetting_5_4, 4, 4);
+
+            PictureBox pictureBoxSetting_5_5 = new PictureBox();
+            pictureBoxSetting_5_5.Name = "5_5";
+            settingLayer.Controls.Add(pictureBoxSetting_5_5, 5, 4);
+
+            PictureBox pictureBoxSetting_5_6 = new PictureBox();
+            pictureBoxSetting_5_6.Name = "5_6";
+            settingLayer.Controls.Add(pictureBoxSetting_5_6, 6, 4);
+
             //Set event onclick for all picture box
             foreach (PictureBox pic in settingLayer.Controls.OfType<PictureBox>())
             {
@@ -242,7 +297,7 @@ namespace Shelf_Register
             btnRegister.Height = 50;
             btnRegister.Width = 100;
             btnRegister.Click += new System.EventHandler(btnRegisterOnClick);
-            settingLayer.Controls.Add(btnRegister, 6, 4);
+            settingLayer.Controls.Add(btnRegister, 6, 5);
 
             // Add button LOAD settingLayer - tableLayout
             Button btnLoad = new Button();
@@ -250,7 +305,7 @@ namespace Shelf_Register
             btnLoad.Height = 50;
             btnLoad.Width = 100;
             btnLoad.Click += new System.EventHandler(btnLoadOnClick);
-            settingLayer.Controls.Add(btnLoad, 5, 4);
+            settingLayer.Controls.Add(btnLoad, 5, 5);
 
             // Add button CLEAR settingLayer - tableLayout
             Button btnClear = new Button();
@@ -258,7 +313,7 @@ namespace Shelf_Register
             btnClear.Height = 50;
             btnClear.Width = 100;
             btnClear.Click += new System.EventHandler(btnClearOnClick);
-            settingLayer.Controls.Add(btnClear, 4, 4);
+            settingLayer.Controls.Add(btnClear, 4, 5);
         }
 
         private void setPositionForRow(int row, int antena)
@@ -430,8 +485,8 @@ namespace Shelf_Register
         private void pictureBoxOnClick_Left(object sender, EventArgs e)
         {
             PictureBox pictureBoxClicked = sender as PictureBox;
-            pictureBoxClicked.Load(@"Common/images/selected.png");
-            if (pictureBoxClicked.ImageLocation == @"Common/images/selected.png")
+            pictureBoxClicked.Load(Const.selected);
+            if (pictureBoxClicked.ImageLocation == Const.selected)
             {
                 pictureBoxClicked.Load(Const.blank_image);
             }
@@ -442,8 +497,8 @@ namespace Shelf_Register
         private void pictureBoxOnClick_Right(object sender, EventArgs e)
         {
             PictureBox pictureBoxClicked = sender as PictureBox;
-            pictureBoxClicked.Load(@"Common/images/selected.png");
-            if (pictureBoxClicked.ImageLocation == @"Common/images/selected.png")
+            pictureBoxClicked.Load(Const.selected);
+            if (pictureBoxClicked.ImageLocation == Const.selected)
             {
                 pictureBoxClicked.Load(Const.blank_image);
             }
@@ -480,7 +535,7 @@ namespace Shelf_Register
             {
                 int picRow = int.Parse(pic.Name.Substring(0, 1));
                 int picCol = int.Parse(pic.Name.Substring(2, 1));
-                if (pic.ImageLocation == @"Common/images/selected.png")
+                if (pic.ImageLocation == Const.selected)
                 {
                     if (picRow == antenaRow)
                     {
@@ -600,7 +655,7 @@ namespace Shelf_Register
                 {
                     if (int.Parse(pic.Name.Substring(2, 1)) == item.col && int.Parse(pic.Name.Substring(0, 1)) == item.row)
                     {
-                        pic.Load(@"Common/images/selected.png");
+                        pic.Load(Const.selected);
                     }
                 }
             }
@@ -618,13 +673,13 @@ namespace Shelf_Register
         {
             PictureBox pictureBoxClicked = sender as PictureBox;
 
-            if (pictureBoxClicked.ImageLocation == @"Common/images/selected.png")
+            if (pictureBoxClicked.ImageLocation == Const.selected)
             {
                 pictureBoxClicked.Load(Const.blank_image);
             }
             else
             {
-                pictureBoxClicked.Load(@"Common/images/selected.png");
+                pictureBoxClicked.Load(Const.selected);
 
             }
         }
