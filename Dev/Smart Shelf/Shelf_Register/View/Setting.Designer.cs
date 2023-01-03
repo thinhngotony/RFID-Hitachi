@@ -74,6 +74,6 @@ namespace Shelf_Register
 
         #endregion
 
-        public static System.Windows.Forms.TableLayoutPanel settingLayer;
+        public System.Windows.Forms.TableLayoutPanel settingLayer;
     }
 }

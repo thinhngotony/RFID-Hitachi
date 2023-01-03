@@ -145,7 +145,8 @@ namespace Shelf_Register
                         Config.antenaNoList.Add(antenaIndex + "," + antenaNo);
                         Global.settingPosition.Add(new Global.SettingAntena { row = row_api, col = col_api });
 
-                        foreach (CheckBox checkItem in Setting.settingLayer.Controls.OfType<CheckBox>())
+                        //foreach (CheckBox checkItem in Setting.settingLayer.Controls.OfType<CheckBox>())
+                        foreach (CheckBox checkItem in Global.settingForm.settingLayer.Controls.OfType<CheckBox>())
                         {
                             if (checkItem.Name == antenaIndex)
                             {

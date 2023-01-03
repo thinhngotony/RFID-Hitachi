@@ -12,11 +12,7 @@ namespace Shelf_Register
 {
     public partial class Setting : Form
     {
-        public static Setting settingForm = null;
-        public static void SetForm(Setting _form)
-        {
-            settingForm = _form;
-        }
+
 
         public Setting()
         {
@@ -24,6 +20,8 @@ namespace Shelf_Register
             this.StartPosition = FormStartPosition.Manual;
             this.CenterToScreen();
             init();
+            Global.SetForm2(this);
+
         }
 
         public void init()

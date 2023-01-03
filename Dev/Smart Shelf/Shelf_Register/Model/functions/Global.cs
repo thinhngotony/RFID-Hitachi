@@ -13,9 +13,17 @@ namespace Shelf_Register
     public static class Global
     {
         public static Front mainForm = null;
+        public static Setting settingForm = null;
+
+
         public static void SetForm(Front _form)
         {
             mainForm = _form;
+        }
+
+        public static void SetForm2(Setting _form)
+        {
+            settingForm = _form;
         }
 
         public static List<InventoryTagInfo> readedTagsRepo = new List<InventoryTagInfo>();
