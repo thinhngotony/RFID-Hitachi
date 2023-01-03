@@ -543,16 +543,13 @@ namespace Shelf_Register
 
                 }
                 updateView();
-            } else if (Global.lastRFID == "" && Global.rfidcode == "")
+            } else
             {
                 txtJan.Text = "";
                 txtName.Text = "";
                 pictureBox.Load(Const.blank_image);
                 Global.product = null;
                 Global.product = new Global.ProductData();
-            } else
-            {
-                Console.WriteLine("Need to handled");
             }
 
 
