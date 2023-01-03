@@ -195,7 +195,6 @@ namespace Shelf_Register
                 }
                 else
                 {
-                    Console.WriteLine(result);
                 }
                 return true;
 
@@ -490,8 +489,6 @@ namespace Shelf_Register
                         }
                         else
                         {
-                            //27122022 BUG
-                            //Global.mainForm.pictureBox.Load(Const.no_image);
                         }
                     }
                     else
@@ -662,10 +659,10 @@ namespace Shelf_Register
                         //Nếu base 64 OK
                         //Nếu link Online OK => Chuyển thành link local
                         //Nếu link local => Covert sang base64
-                        string base64_covert = "";
+                        string imageToDatabase = "";
                         if (Utilities.CheckValidUrlNoLocal(Global.productPos[pic.Name].link_image))
                         {
-                            base64_covert = Utilities.ImageToBase64_Online(Global.productPos[pic.Name].link_image);
+                            imageToDatabase = Utilities.ImageToBase64_Online(Global.productPos[pic.Name].link_image);
                         }
                         else if (Global.productPos[pic.Name].link_image != "")
                         {
@@ -673,10 +670,10 @@ namespace Shelf_Register
 
                             if (!Utilities.IsBase64(Global.productPos[pic.Name].link_image))
                             {
-                                base64_covert = Utilities.ImageToBase64(Global.productPos[pic.Name].link_image);
+                                imageToDatabase = Utilities.ImageToBase64(Global.productPos[pic.Name].link_image);
                             } else
                             {
-                                base64_covert = Global.productPos[pic.Name].link_image;
+                                imageToDatabase = Global.productPos[pic.Name].link_image;
                             }
                         }
 
@@ -691,7 +688,7 @@ namespace Shelf_Register
                             dpp_product_name = Global.productPos[pic.Name].product_name,
                             dpp_scaner_name = Global.mainForm.txtScanner.Text,
                             dpp_shelf_name = dpp_shelf_name,
-                            dpp_image_url = base64_covert
+                            dpp_image_url = imageToDatabase
                         }
 
                         );

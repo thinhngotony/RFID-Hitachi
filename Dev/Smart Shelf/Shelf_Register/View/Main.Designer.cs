@@ -1253,6 +1253,7 @@ namespace Shelf_Register
             this.textBox_1_1.Size = new System.Drawing.Size(112, 43);
             this.textBox_1_1.TabIndex = 56;
             this.textBox_1_1.Click += new System.EventHandler(this.All_txt_click);
+            this.textBox_1_1.TextChanged += new System.EventHandler(this.textBox_1_1_TextChanged);
             // 
             // textBox_3_6
             // 

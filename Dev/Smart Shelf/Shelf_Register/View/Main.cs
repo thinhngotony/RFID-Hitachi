@@ -90,12 +90,9 @@ namespace Shelf_Register
                 messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + ": Can't find IP for TcpHosts \n";
             }
 
-            //Global.update.UpdateViewTimerRegister();
-
             Global.TimerRegister.Enabled = false;
             Global.EthernetForm.UpdateViewTimerRegister();
             Connect_Ethernet.Register();
-
             Connect_Ethernet.Location();
 
 
@@ -631,10 +628,6 @@ namespace Shelf_Register
                     }
 
                     lastChoose = choosingImage;
-                    Console.WriteLine("Saved data to temp");
-                    //string tempdata = GetImage(Global.productPos["temp"].link_image, Global.productPos["temp"].RFIDcode);
-                    //Global.productPos["temp"].link_image = tempdata;
-                    //tempdata = "";
 
                 }
                 else
@@ -1062,10 +1055,12 @@ namespace Shelf_Register
 
         private void Front_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //try
-            //{
-            //}
-            //catch (Exception) { }
+            try
+            {
+                Network.CloseConnect();
+
+            }
+            catch (Exception) { }
         }
 
         private void Check_timer(object sender, EventArgs e)
@@ -1253,7 +1248,6 @@ namespace Shelf_Register
                 DataRow NewRow;
                 DataGridView gridView = new DataGridView();
 
-                //gridView.modf(gridView.detailData);
                 foreach (var item in JsonData["data"])
                 {
 
@@ -1344,6 +1338,11 @@ namespace Shelf_Register
         }
 
         private void textBox_3_1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_1_1_TextChanged(object sender, EventArgs e)
         {
 
         }
