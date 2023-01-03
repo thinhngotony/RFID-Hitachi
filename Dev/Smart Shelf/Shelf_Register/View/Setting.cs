@@ -26,6 +26,65 @@ namespace Shelf_Register
 
         public void init()
         {
+            // Add checkbox to settingLayer - tableLayout
+            CheckBox antenaNo1 = new CheckBox();
+            antenaNo1.Text = "ANTENA";
+            antenaNo1.Name = "1";
+            settingLayer.Controls.Add(antenaNo1, 0, 0);
+
+            CheckBox antenaNo2 = new CheckBox();
+            antenaNo2.Text = "ANTENA";
+            antenaNo2.Name = "2";
+            settingLayer.Controls.Add(antenaNo2, 7, 0);
+
+            CheckBox antenaNo3 = new CheckBox();
+            antenaNo3.Text = "ANTENA";
+            antenaNo3.Name = "3";
+            settingLayer.Controls.Add(antenaNo3, 0, 1);
+
+            CheckBox antenaNo4 = new CheckBox();
+            antenaNo4.Text = "ANTENA";
+            antenaNo4.Name = "4";
+            settingLayer.Controls.Add(antenaNo4, 7, 1);
+
+            CheckBox antenaNo5 = new CheckBox();
+            antenaNo5.Text = "ANTENA";
+            antenaNo5.Name = "5";
+            settingLayer.Controls.Add(antenaNo5, 0, 2);
+
+            CheckBox antenaNo6 = new CheckBox();
+            antenaNo6.Text = "ANTENA";
+            antenaNo6.Name = "6";
+            settingLayer.Controls.Add(antenaNo6, 7, 2);
+
+            //BUG
+            CheckBox antenaNo7 = new CheckBox();
+            antenaNo7.Text = "ANTENA";
+            antenaNo7.Name = "7";
+            settingLayer.Controls.Add(antenaNo7, 1, 3);
+
+            CheckBox antenaNo8 = new CheckBox();
+            antenaNo8.Text = "ANTENA";
+            antenaNo8.Name = "8";
+            settingLayer.Controls.Add(antenaNo8, 7, 3);
+
+            CheckBox antenaNo9 = new CheckBox();
+            antenaNo9.Text = "ANTENA";
+            antenaNo9.Name = "9";
+            settingLayer.Controls.Add(antenaNo9, 0, 4);
+
+            CheckBox antenaNo10 = new CheckBox();
+            antenaNo10.Text = "ANTENA";
+            antenaNo10.Name = "10";
+            settingLayer.Controls.Add(antenaNo10, 7, 4);
+
+            foreach (CheckBox antenaIndex in settingLayer.Controls.OfType<CheckBox>())
+            {
+                //Handle checkbox event tick
+                antenaIndex.CheckedChanged += new System.EventHandler(antenaIndexChecked);
+            }
+
+
             //Add textbox
             TextBox textBox1_1 = new TextBox();
             textBox1_1.Text = "";
@@ -91,62 +150,7 @@ namespace Shelf_Register
                 antenaNo.MaxLength = 2;
             }
 
-            // Add checkbox to settingLayer - tableLayout
-            CheckBox antenaNo1 = new CheckBox();
-            antenaNo1.Text = "ANTENA";
-            antenaNo1.Name = "1";
-            settingLayer.Controls.Add(antenaNo1, 0, 0);
 
-            CheckBox antenaNo2 = new CheckBox();
-            antenaNo2.Text = "ANTENA";
-            antenaNo2.Name = "2";
-            settingLayer.Controls.Add(antenaNo2, 7, 0);
-
-            CheckBox antenaNo3 = new CheckBox();
-            antenaNo3.Text = "ANTENA";
-            antenaNo3.Name = "3";
-            settingLayer.Controls.Add(antenaNo3, 0, 1);
-
-            CheckBox antenaNo4 = new CheckBox();
-            antenaNo4.Text = "ANTENA";
-            antenaNo4.Name = "4";
-            settingLayer.Controls.Add(antenaNo4, 7, 1);
-
-            CheckBox antenaNo5 = new CheckBox();
-            antenaNo5.Text = "ANTENA";
-            antenaNo5.Name = "5";
-            settingLayer.Controls.Add(antenaNo5, 0, 2);
-
-            CheckBox antenaNo6 = new CheckBox();
-            antenaNo6.Text = "ANTENA";
-            antenaNo6.Name = "6";
-            settingLayer.Controls.Add(antenaNo6, 7, 2);
-
-            CheckBox antenaNo7 = new CheckBox();
-            antenaNo7.Text = "ANTENA";
-            antenaNo7.Name = "7";
-            settingLayer.Controls.Add(antenaNo7, 0, 3);
-
-            CheckBox antenaNo8 = new CheckBox();
-            antenaNo8.Text = "ANTENA";
-            antenaNo8.Name = "8";
-            settingLayer.Controls.Add(antenaNo8, 7, 3);
-
-            CheckBox antenaNo9 = new CheckBox();
-            antenaNo9.Text = "ANTENA";
-            antenaNo9.Name = "9";
-            settingLayer.Controls.Add(antenaNo9, 0, 4);
-
-            CheckBox antenaNo10 = new CheckBox();
-            antenaNo10.Text = "ANTENA";
-            antenaNo10.Name = "10";
-            settingLayer.Controls.Add(antenaNo10, 7, 4);
-
-            foreach (CheckBox antenaIndex in settingLayer.Controls.OfType<CheckBox>())
-            {
-                //Handle checkbox event tick
-                antenaIndex.CheckedChanged += new System.EventHandler(antenaIndexChecked);
-            }
 
             // Add pictureBox to settingLayer
             // Solution 1: Loop all settingLayer, find position not contain checkbox and insert picturebox
