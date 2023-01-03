@@ -26,65 +26,6 @@ namespace Shelf_Register
 
         public void init()
         {
-            // Add checkbox to settingLayer - tableLayout
-            CheckBox antenaNo1 = new CheckBox();
-            antenaNo1.Text = "ANTENA";
-            antenaNo1.Name = "1";
-            settingLayer.Controls.Add(antenaNo1, 0, 0);
-
-            CheckBox antenaNo2 = new CheckBox();
-            antenaNo2.Text = "ANTENA";
-            antenaNo2.Name = "2";
-            settingLayer.Controls.Add(antenaNo2, 7, 0);
-
-            CheckBox antenaNo3 = new CheckBox();
-            antenaNo3.Text = "ANTENA";
-            antenaNo3.Name = "3";
-            settingLayer.Controls.Add(antenaNo3, 0, 1);
-
-            CheckBox antenaNo4 = new CheckBox();
-            antenaNo4.Text = "ANTENA";
-            antenaNo4.Name = "4";
-            settingLayer.Controls.Add(antenaNo4, 7, 1);
-
-            CheckBox antenaNo5 = new CheckBox();
-            antenaNo5.Text = "ANTENA";
-            antenaNo5.Name = "5";
-            settingLayer.Controls.Add(antenaNo5, 0, 2);
-
-            CheckBox antenaNo6 = new CheckBox();
-            antenaNo6.Text = "ANTENA";
-            antenaNo6.Name = "6";
-            settingLayer.Controls.Add(antenaNo6, 7, 2);
-
-            //BUG
-            CheckBox antenaNo7 = new CheckBox();
-            antenaNo7.Text = "ANTENA";
-            antenaNo7.Name = "7";
-            settingLayer.Controls.Add(antenaNo7, 1, 3);
-
-            CheckBox antenaNo8 = new CheckBox();
-            antenaNo8.Text = "ANTENA";
-            antenaNo8.Name = "8";
-            settingLayer.Controls.Add(antenaNo8, 7, 3);
-
-            CheckBox antenaNo9 = new CheckBox();
-            antenaNo9.Text = "ANTENA";
-            antenaNo9.Name = "9";
-            settingLayer.Controls.Add(antenaNo9, 0, 4);
-
-            CheckBox antenaNo10 = new CheckBox();
-            antenaNo10.Text = "ANTENA";
-            antenaNo10.Name = "10";
-            settingLayer.Controls.Add(antenaNo10, 7, 4);
-
-            foreach (CheckBox antenaIndex in settingLayer.Controls.OfType<CheckBox>())
-            {
-                //Handle checkbox event tick
-                antenaIndex.CheckedChanged += new System.EventHandler(antenaIndexChecked);
-            }
-
-
             //Add textbox
             TextBox textBox1_1 = new TextBox();
             textBox1_1.Text = "";
@@ -97,6 +38,10 @@ namespace Shelf_Register
             textBox1_2.Name = "2";
             settingLayer.Controls.Add(textBox1_2, 8, 0);
 
+            CheckBox antenaNo3 = new CheckBox();
+            antenaNo3.Text = "ANTENA";
+            antenaNo3.Name = "3";
+            settingLayer.Controls.Add(antenaNo3, 0, 1);
 
             TextBox textBox2_1 = new TextBox();
             textBox2_1.Text = "";
@@ -143,6 +88,23 @@ namespace Shelf_Register
             textBox5_2.Name = "10";
             settingLayer.Controls.Add(textBox5_2, 8, 4);
 
+
+            CheckBox antenaNo11 = new CheckBox();
+            antenaNo11.Text = "ANTENA";
+            antenaNo11.Name = "11";
+            settingLayer.Controls.Add(antenaNo11, 0, 5);
+
+            TextBox textBox6_1 = new TextBox();
+            textBox6_1.Text = "";
+            textBox6_1.Name = "11";
+            settingLayer.Controls.Add(textBox6_1, 0, 5);
+
+
+            TextBox textBox6_2 = new TextBox();
+            textBox6_2.Text = "";
+            textBox6_2.Name = "12";
+            settingLayer.Controls.Add(textBox6_2, 8, 5);
+
             foreach (TextBox antenaNo in settingLayer.Controls.OfType<TextBox>())
             {
                 //Handle textbox data
@@ -150,12 +112,69 @@ namespace Shelf_Register
                 antenaNo.MaxLength = 2;
             }
 
+            // Add checkbox to settingLayer - tableLayout
+            CheckBox antenaNo1 = new CheckBox();
+            antenaNo1.Text = "ANTENA";
+            antenaNo1.Name = "1";
+            settingLayer.Controls.Add(antenaNo1, 0, 0);
 
+            CheckBox antenaNo2 = new CheckBox();
+            antenaNo2.Text = "ANTENA";
+            antenaNo2.Name = "2";
+            settingLayer.Controls.Add(antenaNo2, 7, 0);
+
+            CheckBox antenaNo4 = new CheckBox();
+            antenaNo4.Text = "ANTENA";
+            antenaNo4.Name = "4";
+            settingLayer.Controls.Add(antenaNo4, 7, 1);
+
+            CheckBox antenaNo5 = new CheckBox();
+            antenaNo5.Text = "ANTENA";
+            antenaNo5.Name = "5";
+            settingLayer.Controls.Add(antenaNo5, 0, 2);
+
+            CheckBox antenaNo6 = new CheckBox();
+            antenaNo6.Text = "ANTENA";
+            antenaNo6.Name = "6";
+            settingLayer.Controls.Add(antenaNo6, 7, 2);
+
+            CheckBox antenaNo7 = new CheckBox();
+            antenaNo7.Text = "ANTENA";
+            antenaNo7.Name = "7";
+            settingLayer.Controls.Add(antenaNo7, 0, 3);
+
+            CheckBox antenaNo8 = new CheckBox();
+            antenaNo8.Text = "ANTENA";
+            antenaNo8.Name = "8";
+            settingLayer.Controls.Add(antenaNo8, 7, 3);
+
+            CheckBox antenaNo9 = new CheckBox();
+            antenaNo9.Text = "ANTENA";
+            antenaNo9.Name = "9";
+            settingLayer.Controls.Add(antenaNo9, 0, 4);
+
+            CheckBox antenaNo10 = new CheckBox();
+            antenaNo10.Text = "ANTENA";
+            antenaNo10.Name = "10";
+            settingLayer.Controls.Add(antenaNo10, 7, 4);
+
+            CheckBox antenaNo12 = new CheckBox();
+            antenaNo12.Text = "ANTENA";
+            antenaNo12.Name = "12";
+            settingLayer.Controls.Add(antenaNo12, 7, 5);
+
+            foreach (CheckBox antenaIndex in settingLayer.Controls.OfType<CheckBox>())
+            {
+                //Handle checkbox event tick
+                antenaIndex.CheckedChanged += new System.EventHandler(antenaIndexChecked);
+            }
 
             // Add pictureBox to settingLayer
             // Solution 1: Loop all settingLayer, find position not contain checkbox and insert picturebox
             // Solution 2: Manual insert
             // Solution 3: Loop with location
+
+            //=======================ROW 1======================//
 
             PictureBox pictureBoxSetting_1_1 = new PictureBox();
             pictureBoxSetting_1_1.Name = "1_1";
@@ -169,11 +188,9 @@ namespace Shelf_Register
             pictureBoxSetting_1_3.Name = "1_3";
             settingLayer.Controls.Add(pictureBoxSetting_1_3, 3, 0);
 
-
             PictureBox pictureBoxSetting_1_4 = new PictureBox();
             pictureBoxSetting_1_4.Name = "1_4";
             settingLayer.Controls.Add(pictureBoxSetting_1_4, 4, 0);
-
 
             PictureBox pictureBoxSetting_1_5 = new PictureBox();
             pictureBoxSetting_1_5.Name = "1_5";
@@ -182,6 +199,8 @@ namespace Shelf_Register
             PictureBox pictureBoxSetting_1_6 = new PictureBox();
             pictureBoxSetting_1_6.Name = "1_6";
             settingLayer.Controls.Add(pictureBoxSetting_1_6, 6, 0);
+
+            //=======================ROW 2======================//
 
             PictureBox pictureBoxSetting_2_1 = new PictureBox();
             pictureBoxSetting_2_1.Name = "2_1";
@@ -207,6 +226,8 @@ namespace Shelf_Register
             pictureBoxSetting_2_6.Name = "2_6";
             settingLayer.Controls.Add(pictureBoxSetting_2_6, 6, 1);
 
+            //=======================ROW 3======================//
+
             PictureBox pictureBoxSetting_3_1 = new PictureBox();
             pictureBoxSetting_3_1.Name = "3_1";
             settingLayer.Controls.Add(pictureBoxSetting_3_1, 1, 2);
@@ -231,8 +252,7 @@ namespace Shelf_Register
             pictureBoxSetting_3_6.Name = "3_6";
             settingLayer.Controls.Add(pictureBoxSetting_3_6, 6, 2);
 
-            //===================================================
-
+            //=======================ROW 4======================//
 
             PictureBox pictureBoxSetting_4_1 = new PictureBox();
             pictureBoxSetting_4_1.Name = "4_1";
@@ -258,7 +278,8 @@ namespace Shelf_Register
             pictureBoxSetting_4_6.Name = "4_6";
             settingLayer.Controls.Add(pictureBoxSetting_4_6, 6, 3);
 
-            //===================================================
+            //=======================ROW 5======================//
+
             PictureBox pictureBoxSetting_5_1 = new PictureBox();
             pictureBoxSetting_5_1.Name = "5_1";
             settingLayer.Controls.Add(pictureBoxSetting_5_1, 1, 4);
@@ -283,6 +304,32 @@ namespace Shelf_Register
             pictureBoxSetting_5_6.Name = "5_6";
             settingLayer.Controls.Add(pictureBoxSetting_5_6, 6, 4);
 
+            //=======================ROW 6======================//
+
+            PictureBox pictureBoxSetting_6_1 = new PictureBox();
+            pictureBoxSetting_6_1.Name = "6_1";
+            settingLayer.Controls.Add(pictureBoxSetting_6_1, 1, 5);
+
+            PictureBox pictureBoxSetting_6_2 = new PictureBox();
+            pictureBoxSetting_6_2.Name = "6_2";
+            settingLayer.Controls.Add(pictureBoxSetting_6_2, 2, 5);
+
+            PictureBox pictureBoxSetting_6_3 = new PictureBox();
+            pictureBoxSetting_6_3.Name = "6_3";
+            settingLayer.Controls.Add(pictureBoxSetting_6_3, 3, 5);
+
+            PictureBox pictureBoxSetting_6_4 = new PictureBox();
+            pictureBoxSetting_6_4.Name = "6_4";
+            settingLayer.Controls.Add(pictureBoxSetting_6_4, 4, 5);
+
+            PictureBox pictureBoxSetting_6_5 = new PictureBox();
+            pictureBoxSetting_6_5.Name = "6_5";
+            settingLayer.Controls.Add(pictureBoxSetting_6_5, 5, 5);
+
+            PictureBox pictureBoxSetting_6_6 = new PictureBox();
+            pictureBoxSetting_6_6.Name = "6_6";
+            settingLayer.Controls.Add(pictureBoxSetting_6_6, 6, 5);
+
             //Set event onclick for all picture box
             foreach (PictureBox pic in settingLayer.Controls.OfType<PictureBox>())
             {
@@ -299,7 +346,7 @@ namespace Shelf_Register
             btnRegister.Height = 50;
             btnRegister.Width = 100;
             btnRegister.Click += new System.EventHandler(btnRegisterOnClick);
-            settingLayer.Controls.Add(btnRegister, 6, 5);
+            settingLayer.Controls.Add(btnRegister, 6, 6);
 
             // Add button LOAD settingLayer - tableLayout
             Button btnLoad = new Button();
@@ -307,7 +354,7 @@ namespace Shelf_Register
             btnLoad.Height = 50;
             btnLoad.Width = 100;
             btnLoad.Click += new System.EventHandler(btnLoadOnClick);
-            settingLayer.Controls.Add(btnLoad, 5, 5);
+            settingLayer.Controls.Add(btnLoad, 5, 6);
 
             // Add button CLEAR settingLayer - tableLayout
             Button btnClear = new Button();
@@ -315,7 +362,7 @@ namespace Shelf_Register
             btnClear.Height = 50;
             btnClear.Width = 100;
             btnClear.Click += new System.EventHandler(btnClearOnClick);
-            settingLayer.Controls.Add(btnClear, 4, 5);
+            settingLayer.Controls.Add(btnClear, 4, 6);
         }
 
         private void setPositionForRow(int row, int antena)
@@ -738,16 +785,6 @@ namespace Shelf_Register
                 DialogResult confirmResult = MessageBox.Show("データの読み込みに失敗しました", "結果", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
             Config.isLoadSetting = false;
-
-        }
-
-        private void settingLayer_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void Setting_Load(object sender, EventArgs e)
-        {
 
         }
 
