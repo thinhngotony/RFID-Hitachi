@@ -71,7 +71,7 @@ func main() {
 	r.POST("/api/v1/update_position_mst_antena_v1", controllers.UpdatePositionMSTAntena)
 	r.POST("/api/v1/load_position_mst_antena", controllers.LoadPositionMSTAntena)
 
-	if err := r.Run("0.0.0.0:8030"); err != nil {
+	if err := r.Run("0.0.0.0:8027"); err != nil {
 		panic(err.Error())
 	}
 }
