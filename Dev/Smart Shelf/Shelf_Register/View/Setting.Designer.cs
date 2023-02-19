@@ -56,7 +56,7 @@ namespace Shelf_Register
             this.settingLayer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
             this.settingLayer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
             this.settingLayer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.settingLayer.Size = new System.Drawing.Size(1008, 729) ;
+            this.settingLayer.Size = new System.Drawing.Size(1008, 729);
             this.settingLayer.TabIndex = 0;
             // 
             // Setting
