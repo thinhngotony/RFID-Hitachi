@@ -1,5 +1,6 @@
 ﻿using InterfaceLib.DEFINE;
 using Rfid.Helper.Services.Mq;
+using Shelf_Register.Devices.TEC2140;
 using SuperSimpleTcp;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace Shelf_Register
     {
         public static Front mainForm = null;
         public static Setting settingForm = null;
+        public static AxOPOSRFIDLib.AxOPOSRFID OPOSRFID1 = new AxOPOSRFIDLib.AxOPOSRFID();
+        public static TEC2140 opos;
 
 
         public static void SetForm(Front _form)

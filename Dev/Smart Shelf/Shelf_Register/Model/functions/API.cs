@@ -209,6 +209,7 @@ namespace Shelf_Register
         public static async Task<bool> ApiUpdatePositionMSTAntena(string antenaIndex, int scan_col_start, string antenaNo)
         {
             //Hanle shelfNo
+
             string shelfNo = Config.nameOfShelf;
 
             //Handle row 
@@ -403,7 +404,7 @@ namespace Shelf_Register
                         string base64 = (string)api_result["base64"];
                         if (base64 != null)
                         {
-                            //Session.productPos[key].link_image = base64;
+                            //Global.productPos[key].link_image = base64;
                             //Handle get image link from BQ for Cuong
                             Global.productPos[key].link_image_bq = base64;
                             Image loadBase64 = Utilities.LoadImage(base64);
@@ -554,6 +555,7 @@ namespace Shelf_Register
                         return Const.no_image;
                     }
                 }
+
                 else
                 {
                     return Const.no_image;
@@ -605,7 +607,7 @@ namespace Shelf_Register
                         // Displayed in the user interface
                         if (Global.product.isbn != "")
                         {
-                            Global.mainForm.pictureBox.LoadAsync(Global.product.link_image);
+                            Global.mainForm.pictureBox.Load(Global.product.link_image);
                         }
                         else
                         {
@@ -948,7 +950,7 @@ namespace Shelf_Register
                 HttpClient api_client = new HttpClient();
                 api_client.BaseAddress = new Uri(Config.address_api);
                 api_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //var arrayOfAllKeys = Session.productPos.Keys.ToArray();
+                //var arrayOfAllKeys = Global.productPos.Keys.ToArray();
 
                 List<string> rfids = new List<string>();
 

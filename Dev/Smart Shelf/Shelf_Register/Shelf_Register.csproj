@@ -35,12 +35,12 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,6 +56,10 @@
     <ApplicationIcon>Common\images\SmartShelf.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.OPOSRFIDLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\dll\AxInterop.OPOSRFIDLib.dll</HintPath>
+    </Reference>
     <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
@@ -257,6 +261,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Devices\TEC2140\TEC2140.cs" />
+    <Compile Include="Devices\TEC2140\OposStatus.cs" />
     <Compile Include="Model\functions\API.cs" />
     <Compile Include="Model\functions\Global.cs" />
     <Compile Include="Model\functions\Network.cs" />
@@ -338,9 +344,13 @@
     <None Include="Common\config\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\dll\AxInterop.OPOSRFIDLib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Common\dll\InterfaceLib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Common\dll\Interop.OPOSRFIDLib.dll" />
     <Content Include="Common\dll\KillProcessRFID.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -372,6 +382,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="OPOSRFIDLib">
+      <Guid>{69DB2992-66DE-4866-B2C9-E5AF3A5CDCE4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" />

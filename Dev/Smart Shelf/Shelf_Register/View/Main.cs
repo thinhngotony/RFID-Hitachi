@@ -2,6 +2,7 @@
 using Rfid.Helper.Common;
 using Rfid.Helper.Extensions;
 using Rfid.Helper.Services.Mq;
+using Shelf_Register.Devices.TEC2140;
 using SuperSimpleTcp;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Collections.Specialized.BitVector32;
 
 
 namespace Shelf_Register
@@ -35,7 +37,7 @@ namespace Shelf_Register
             InitializeComponent();
             this.StartPosition = FormStartPosition.Manual;
             this.CenterToScreen();
-            //KillProcessRFID.ControlKill.KillRFIDProcess_diffCurrent();
+            KillProcessRFID.ControlKill.KillRFIDProcess_diffCurrent();
             init();
 
 
@@ -48,8 +50,7 @@ namespace Shelf_Register
         private void init()
         {
             Config.readConfig();
-            Global.dataRegister = new MqClient(Rfid.Helper.Enums.MqClientAppName.REGISTER_MASTER_APP, Config.rabbitMQ);
-            Global.dataLocation = new MqClient(Rfid.Helper.Enums.MqClientAppName.LOCATION_SHELF_APP, Config.rabbitMQ);
+
             foreach (PictureBox pictureBox_Items in ImageLayer.Controls.OfType<PictureBox>())
             {
                 pictureBox_Items.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -81,9 +82,9 @@ namespace Shelf_Register
                 Directory.CreateDirectory(Config.static_img_folder);
             }
 
-            if (Config.TcpShelfHost_Dictionary.ContainsKey(cbShelf.Text.ToString()))
+            if (Config.TcpShelfHostDetail.ContainsKey(cbShelf.Text.ToString()))
             {
-                Config.TcpHost = Config.TcpShelfHost_Dictionary[cbShelf.Text.ToString()];
+                Config.TcpHost = Config.TcpShelfHostDetail[cbShelf.Text.ToString()];
             }
             else
             {
@@ -92,8 +93,13 @@ namespace Shelf_Register
 
             Global.TimerRegister.Enabled = false;
             Global.EthernetForm.UpdateViewTimerRegister();
+
+            Global.dataRegister = new MqClient(Rfid.Helper.Enums.MqClientAppName.REGISTER_MASTER_APP, Config.rabbitMQ);
+            Global.dataLocation = new MqClient(Rfid.Helper.Enums.MqClientAppName.LOCATION_SHELF_APP, Config.rabbitMQ);
             Connect_Ethernet.Register();
             Connect_Ethernet.Location();
+
+            Global.opos = new TEC2140();
 
 
         }
@@ -451,27 +457,95 @@ namespace Shelf_Register
 
         }
 
+
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            if (btnScan.BackColor != Color.ForestGreen)
+            if (txtScanner.Text == "HITACHI")
             {
-                btnConnect.Text = btnConnect.Text == "READ TAG" ? "READING..." : "READ TAG";
-                if (btnConnect.Text == "READING...")
+                if (btnScan.BackColor != Color.ForestGreen)
                 {
-                    Global.readedTagsRepo.Clear();
-                    Global.dataRegister.EnableReceivedData = true;
-                    Global.TimerRegister.Enabled = true;
-                    btnConnect.BackColor = Color.ForestGreen;
-                }
-                else
-                {
-                    Global.dataRegister.EnableReceivedData = false;
-                    Global.TimerRegister.Enabled = false;
-                    btnConnect.Text = "READ TAG";
-                    btnConnect.BackColor = Color.RoyalBlue;
+                    btnConnect.Text = btnConnect.Text == "READ TAG" ? "READING..." : "READ TAG";
+                    if (btnConnect.Text == "READING...")
+                    {
+                        Global.readedTagsRepo.Clear();
+                        Global.dataRegister.EnableReceivedData = true;
+                        Global.TimerRegister.Enabled = true;
+                        btnConnect.BackColor = Color.ForestGreen;
+                    }
+                    else
+                    {
+                        Global.dataRegister.EnableReceivedData = false;
+                        Global.TimerRegister.Enabled = false;
+                        btnConnect.Text = "READ TAG";
+                        btnConnect.BackColor = Color.RoyalBlue;
 
+                    }
                 }
+            } else if (txtScanner.Text == "TECRFIDSCANNERUSB5")
+            {
+                //btnConnect.Enabled = false;
+                switch (btnConnect.Text)
+                {
+                    case "READ TAG":
+                        if (Config.scan_mode == false)
+                        {
+                            Global.OPOSRFID1.CreateControl();
+                            int n = Global.opos.OPOS_EnableDevice(Global.OPOSRFID1);
+                            if (n == -1)
+                            {
+                                //opos.setAtenaPower(Global.OPOSRFID1, Global.antenaPower);
+                                Global.opos.OPOS_StartReading(Global.OPOSRFID1);
+                                btnConnect.Text = "READING...";
+                                btnConnect.BackColor = Color.ForestGreen;
+                                messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + ": Connected to Device\n";
+                            }
+                            else
+                            {
+                                switch (n)
+                                {
+                                    case 0:
+                                        messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + ": Connect to Device Failed \n";
+                                        break;
+                                    case 1:
+                                        messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + ": Claim Device Failed\n";
+                                        break;
+                                    case 2:
+                                        messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + ": Enable Device Failed\n";
+                                        break;
+                                    default:
+                                        break;
+                                };
+                            }
+                            break;
+                        }
+
+                        break;
+                    case "READING...":
+                        Global.opos.OPOS_StopReading(Global.OPOSRFID1);
+                        btnConnect.Text = "PAUSED";
+                        messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + ": Device stopped Reading \n";
+                        break;
+                    case "PAUSED":
+                        //opos.OPOS_readSingleTag(Session.OPOSRFID1);
+                        if (Config.scan_mode == false)
+                        {
+                            Global.opos.OPOS_StartReading(Global.OPOSRFID1);
+                            btnConnect.Text = "READING...";
+                            messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + ": Device started Reading \n";
+                            break;
+                        } else
+                        {
+                            break;
+                        }
+                    default:
+                        break;
+                }
+                //btnConnect.Enabled = true;
+            } else
+            {
+                DialogResult errorPopUp = MessageBox.Show("Please input TECRFIDSCANNERUSB5 or HITACHI at DEVICE NAME", "エラーダイアログ", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
+
 
 
         }
@@ -910,8 +984,8 @@ namespace Shelf_Register
                     deleteImage.Load(Const.blank_image);
                     Global.productPos.Remove(deleteImage.Name);
                     deleteName();
-                    //ProductPos z = Session.productPos[deleteImage.Name];
-                    //Session.productPos.Keys.ToList().ForEach(z => Console.WriteLine("Result after delete" + z.ToString()));
+                    //ProductPos z = Global.productPos[deleteImage.Name];
+                    //Global.productPos.Keys.ToList().ForEach(z => Console.WriteLine("Result after delete" + z.ToString()));
                     if (Global.productPos.Keys.Contains("temp"))
                     {
                         Global.productPos.Remove(Global.productPos["temp"].picture_box.Name);
@@ -981,7 +1055,7 @@ namespace Shelf_Register
                 locationTimer.Stop();
 
             }
-            //Session.productPos.Keys.ToList().ForEach(x => Console.WriteLine("Data is " + x.ToString()+ (Session.productPos[x] as ProductPos).isbn));
+            //Global.productPos.Keys.ToList().ForEach(x => Console.WriteLine("Data is " + x.ToString()+ (Global.productPos[x] as ProductPos).isbn));
 
         }
         public Bitmap changeOpacity(Bitmap pic, int opacity)
@@ -1041,9 +1115,9 @@ namespace Shelf_Register
         private void cbShelf_SelectedIndexChanged(object sender, EventArgs e)
         {
             Config.TcpHost = null;
-            if (Config.TcpShelfHost_Dictionary.ContainsKey(cbShelf.Text.ToString()))
+            if (Config.TcpShelfHostDetail.ContainsKey(cbShelf.Text.ToString()))
             {
-                Config.TcpHost = Config.TcpShelfHost_Dictionary[cbShelf.Text.ToString()];
+                Config.TcpHost = Config.TcpShelfHostDetail[cbShelf.Text.ToString()];
                 Config.nameOfShelf = cbShelf.Text.ToString();
             }
             else
@@ -1101,15 +1175,35 @@ namespace Shelf_Register
 
         private void btnScan_Click(object sender, EventArgs e)
         {
-            Global.rawDataList.Clear();
-            Config.dataListLocal = ShelfLocal.ConvertCSVtoDataTable(Config.path_shelfpro_local);
-            resetLabel(1);
-            Task.Run(() => API.ApiClearRawData()).Wait();
-            Global.dataLocation.EnableReceivedData = true;
-            Config.scan_mode = true;
+
+
+            if (Config.valueOfShelvesDetail.ContainsKey(Global.mainForm.cbShelf.Text.ToString()))
+            {
+                Config.detailAntenaNumberOfShelf = Config.valueOfShelvesDetail[Global.mainForm.cbShelf.Text.ToString()];
+            }
+
+
+
             btnScan.Text = btnScan.Text == "SCAN" ? "SCANNING..." : "SCAN";
             if (btnScan.Text == "SCANNING...")
             {
+                Global.rawDataList.Clear();
+                Config.dataListLocal = ShelfLocal.ConvertCSVtoDataTable(Config.path_shelfpro_local);
+
+                Global.opos.OPOS_StopReading(Global.OPOSRFID1);
+                if (btnConnect.Text == "READING...")
+                {
+                    btnConnect.Text = "PAUSED";
+                    btnConnect.Enabled = false;
+                }
+                messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + ": Device stopped Reading \n";
+
+                resetLabel(1);
+                Task.Run(() => API.ApiClearRawData()).Wait();
+                Global.dataLocation.EnableReceivedData = true;
+                Config.scan_mode = true;
+
+
                 Config.time_set_location = (int)Int64.Parse(txtLocation.Text);
                 btnScan.BackColor = Color.ForestGreen;
                 if (btnLoad.BackColor == Color.ForestGreen || btnCheck.BackColor == Color.ForestGreen || btnConnect.BackColor == Color.ForestGreen)
@@ -1119,16 +1213,13 @@ namespace Shelf_Register
                     btnCheck.BackColor = Color.RoyalBlue;
                     checkTimer.Stop();
 
-                    btnConnect.Text = "READ TAG";
-                    btnConnect.BackColor = Color.RoyalBlue;
 
                     Global.dataRegister.EnableReceivedData = false;
                     Global.TimerRegister.Enabled = false;
 
                 }
-
                 locationTimer.Start();
-                messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss ") + "Success connected to scanning antena" + "\n";
+                messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss: ") + "Success connected to scanning antena" + "\n";
             }
             else
             {
@@ -1169,11 +1260,18 @@ namespace Shelf_Register
 
                         if (Global.product.isbn != "")
                         {
+                            //BUG here when merge HTC + TEC: out of memory
                             foreach (PictureBox pictureBox_Items in ImageLayer.Controls.OfType<PictureBox>())
                             {
+                                //BUG here when merge HTC + TEC: long time
                                 if (Global.productPos.Keys.Contains(pictureBox_Items.Name))
                                 {
-                                    pictureBox_Items.LoadAsync(Global.product.link_image);
+                                    string url = GetImage(Global.product.link_image, Global.productPos[key].RFIDcode);
+                                    Global.product.link_image = url;
+                                    pictureBox_Items.Load(url);
+                                    url = "";
+
+                                    //pictureBox_Items.Load(Global.product.link_image);
                                 }
                             }
                         }
@@ -1182,6 +1280,14 @@ namespace Shelf_Register
                     {
                         Task.Run(() => API.ApiGetDataFromBQ_Sync(key, Global.productPos[key].Jancode)).Wait();
                         Task.Run(() => API.ApiGetImageLocal(key, Global.productPos[key].Jancode)).Wait();
+                    }
+
+
+                    if (btnConnect.Text == "PAUSED")
+                    {
+                        btnConnect.Text = "READING...";
+                        Global.opos.OPOS_StartReading(Global.OPOSRFID1);
+
                     }
 
                 }
@@ -1196,6 +1302,7 @@ namespace Shelf_Register
                 messageFromApp.Text += DateTime.Now.ToString("hh:mm:ss") + Global.apiMessage + "\n";
                 wait.Visible = false;
                 Config.scan_mode = false;
+                btnConnect.Enabled = true;
             }
 
 
@@ -1259,6 +1366,7 @@ namespace Shelf_Register
                     string image = "";
                     string product_name_bq_result = "";
                     string isbn_bq_result = "";
+
 
                     if (productLocal != null)
                     {

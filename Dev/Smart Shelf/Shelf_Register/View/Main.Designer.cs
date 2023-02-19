@@ -1562,7 +1562,7 @@ namespace Shelf_Register
         private System.Windows.Forms.Label lRfid;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.RichTextBox messageFromApp;
-        private System.Windows.Forms.Button btnConnect;
+        public  System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.PictureBox pictureBox_1_1;
         private System.Windows.Forms.PictureBox pictureBox_1_2;

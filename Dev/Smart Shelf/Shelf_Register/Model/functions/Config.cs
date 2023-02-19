@@ -16,6 +16,9 @@ namespace Shelf_Register
         public static string device_name = "";
         public static double readingTimer = 0;
 
+        //TEC2140
+        public static int interval_read_TEC2140 = 0;
+
         //API
         public static string address_api = "";
         public static string rfmaster_sub = "";
@@ -139,8 +142,10 @@ namespace Shelf_Register
         public static DataTable dataListLocal = new DataTable();
         public static string path_shelfpro_local = "";
         public static string static_img_folder = "";
-        public static Dictionary<string, List<string>> TcpShelfHost_Dictionary = new Dictionary<string, List<string>>();
+        public static Dictionary<string, List<string>> TcpShelfHostDetail = new Dictionary<string, List<string>>();
+        public static Dictionary<string, List<string>> valueOfShelvesDetail = new Dictionary<string, List<string>>();
         public static List<string> TcpHost = new List<string>();
+        public static List<string> detailAntenaNumberOfShelf = new List<string>();
         public static List<string> smart_shelf_names = new List<string>();
 
         // Variable for Setting.cs
@@ -164,12 +169,12 @@ namespace Shelf_Register
         public static string rabbitMQ = "";
 
 
-        private static Dictionary<string, List<string>> ReadTcpHosts(string value)
+        private static Dictionary<string, List<string>> readDataFormatSpec(string value)
         {
             Dictionary<string, List<string>> temp = new Dictionary<string, List<string>>();
             if (string.IsNullOrEmpty(value))
             {
-                Console.WriteLine("Null value in config TCPHosts");
+                Console.WriteLine("Null value in config TCPHosts or value of shelves");
             }
             else
             {
@@ -263,7 +268,8 @@ namespace Shelf_Register
             device_name = dataInFile["device_name"];
             time_check = (int)Int64.Parse(dataInFile["check_interval_miliseconds"]) / 1000;
             rfid_to_status_smartshelf = dataInFile["rfid_to_status_smartshelf"];
-            TcpShelfHost_Dictionary = ReadTcpHosts(dataInFile["TcpShelfHost"]);
+            TcpShelfHostDetail = readDataFormatSpec(dataInFile["TcpShelfHost"]);
+            valueOfShelvesDetail = readDataFormatSpec(dataInFile["value_shelves"]);
             time_set_location = (int)Int64.Parse(dataInFile["setlocation_interval_miliseconds"]) / 1000;
             update_position_mst_antena = dataInFile["update_position_mst_antena"];
             clear_position_mst_antena = dataInFile["clear_position_mst_antena"];
@@ -272,6 +278,7 @@ namespace Shelf_Register
             path_shelfpro_local = dataInFile["path_shelfpro_local"];
             static_img_folder = dataInFile["static_img_folder"];
             rabbitMQ = dataInFile["rabbitMQ"];
+            interval_read_TEC2140 = (int)Int64.Parse(dataInFile["interval_read_TEC2140"]);
             readingTimer = Convert.ToDouble(dataInFile["readingTimer"]);
 
         }

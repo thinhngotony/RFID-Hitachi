@@ -16,20 +16,43 @@ namespace Shelf_Register
     {
         public static void Scan_ReceivedDataEvent(List<InventoryTagInfo> tagsInfoList)
         {
+
             tagsInfoList.ForEach(p =>
             {
-                Console.WriteLine($"{p.DetectedTime} | {p.Ant} | {p.Epc}| {p.Rssi}");
+                if (Config.detailAntenaNumberOfShelf.Contains(p.Ant.ToString()))
+                {
+                    Console.WriteLine($"{p.DetectedTime} | {p.Ant} | {p.Epc}| {p.Rssi}");
+
+                }
             });
-            
+
+            //tagsInfoList.ForEach(p =>
+            //{
+
+            //    Console.WriteLine($"{p.DetectedTime} | {p.Ant} | {p.Epc}| {p.Rssi}");
+
+
+            //});
+
+
+
             foreach (var data in tagsInfoList)
             {
-                Global.rawDataList.Add(new Global.RawData
+                tagsInfoList.ForEach(p =>
                 {
-                    rfid = data.Epc,
-                    rssi = data.Rssi,
-                    antena_no = data.Ant,
-                    shelf_no = Config.nameOfShelf,
+                if (Config.detailAntenaNumberOfShelf.Contains(p.Ant.ToString()))
+                {
+                    Global.rawDataList.Add(new Global.RawData
+                        {
+                            rfid = data.Epc,
+                            rssi = data.Rssi,
+                            antena_no = data.Ant,
+                            shelf_no = Config.nameOfShelf,
+                        });
+                    }
                 });
+
+
             };
         }
 
